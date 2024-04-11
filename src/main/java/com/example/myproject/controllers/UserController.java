@@ -2,8 +2,9 @@ package com.example.myproject.controllers;
 
 import java.util.List;
 
+import org.hibernate.engine.internal.AbstractEntityEntry;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,6 +51,23 @@ public class UserController {
 		return repository.save(user);
 	
 	}
+	
+	
+	@DeleteMapping(value = "/{id}")
+	public void delete(@PathVariable Long id) {
+		System.out.println("Deleted user.");
+	    repository.deleteById(id);
+	    
+	    
+	    	
+			
+		
+	    
+	    
+	}
+	
+	
+	
 	
 	
 	
