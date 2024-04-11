@@ -1,7 +1,4 @@
-# List
-
-
-API para gerenciar usuários e departamentos (CRUD).
+# API para gerenciar usuários e departamentos (CRUD).
 
 # Tecnologias
 java | 
@@ -11,12 +8,8 @@ H2 Database
 
 
 
-
-API Endpoints
-Para fazer as requisições HTTP abaixo, foi utilizada a ferramenta httpie:
-
 Criar usuário
-$ http POST :8080/todos nome="Todo 1" descricao="Desc Todo 1" prioridade=1
+$ http POST :8080/users
 
 {
         
@@ -80,6 +73,31 @@ Dessa forma, todos os usuários na lista, irão aparecer.
 
 
 ]
+
+# Listar usuários
+
+Para ver apenas um usuário, é necessário usar o GET e passar o id do usuário.
+exemplo:
+
+http GET:8080/users/1
+
+    {
+        "id": 1,
+        "name": "Maria",
+        "email": "maria@gmail.com",
+        "department": {
+            "id": 1,
+            "nome": "Gestão"
+            
+        }
+    }
+
+Dessa forma o usuário com id igual a 1, será listado.
+
+
+
+
+
 # Atualizar informações
 
 Para atualizar as informações dos usuários, é necessário usar o PUT e passar as informações do usuário que deseja atualizar.
@@ -140,7 +158,6 @@ Depois de atualizar:
 Para remover usuários, é necessário usar o Delete e passar o id do usuário.
 exemplo:
 
-http DELETE :8080/todos/1
+http DELETE :8080/users/1
 
 o usuário com id igual a 1 será deletado.
-
