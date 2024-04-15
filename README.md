@@ -1,15 +1,16 @@
 # API para gerenciar usuários e departamentos (CRUD).
 
 # Tecnologias
-Java
-Spring Boot
-Spring Data JPA
-SpringDoc OpenAPI 3
-MySQL
+Java |
+Spring Boot |
+Spring Data JPA |
+SpringDoc OpenAPI 3 |
+H2 database 
 
 # Práticas adotadas
-Consultas com Spring Data JPA
-Geração automática de documentação com o Swagger da OpenAPI 3.
+Consultas com Spring Data JPA 
+
+Geração automática de documentação com o Swagger da OpenAPI 3. 
 
 
 
