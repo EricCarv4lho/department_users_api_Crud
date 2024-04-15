@@ -1,14 +1,19 @@
 # API para gerenciar usuários e departamentos (CRUD).
 
 # Tecnologias
-java | 
-Spring Boot |
-Spring Data JPA |
-H2 Database |
-Swagger com a OpenAPI |
+Java
+Spring Boot
+Spring Data JPA
+SpringDoc OpenAPI 3
+MySQL
+
+# Práticas adotadas
+Consultas com Spring Data JPA
+Geração automática de documentação com o Swagger da OpenAPI 3.
 
 
-Criar usuário
+
+# Criar usuário
 $ http POST :8080/users
 
 {
@@ -74,7 +79,7 @@ Dessa forma, todos os usuários na lista, irão aparecer.
 
 ]
 
-# Listar usuários
+# Retornar um usuário
 
 Para ver apenas um usuário, é necessário usar o GET e passar o id do usuário.
 exemplo:
@@ -92,7 +97,7 @@ http GET:8080/users/1
         }
     }
 
-Dessa forma o usuário com id igual a 1, será listado.
+Dessa forma o usuário com id igual a 1, será retornado.
 
 
 
@@ -106,7 +111,7 @@ exemplo:
 http PUT :8080/users
 
 
-   Antes de atualizar:                                      Passando informações
+   Antes de atualizar:        
 
     {
         "id": 2,
@@ -161,3 +166,6 @@ exemplo:
 http DELETE :8080/users/1
 
 o usuário com id igual a 1 será deletado.
+
+
+
