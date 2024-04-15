@@ -4,8 +4,8 @@
 java | 
 Spring Boot |
 Spring Data JPA |
-H2 Database
-
+H2 Database |
+Swagger com a OpenAPI |
 
 
 Criar usuário
