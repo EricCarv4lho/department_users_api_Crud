@@ -1,8 +1,12 @@
 package com.example.myproject.controllers;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +19,10 @@ import com.example.myproject.entities.User;
 import com.example.myproject.services.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
+import jakarta.validation.ValidationException;
+
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RequestMapping(value = "/users")
@@ -24,7 +32,10 @@ public class UserController {
 	
 	private final UserService userService;
 	
-	@Autowired
+	
+	
+
+
 	public UserController(UserService userService) {
 		this.userService = userService;
 	}
@@ -32,15 +43,36 @@ public class UserController {
 	
 	@Operation(summary = "Listar", description = "Este método lista todos os usuários.")
 	@GetMapping
-	public List<User>findAll(){
-		return userService.findAll();
+	public ResponseEntity <List<User>> findAll(){
+		
+		
+		try {List<User> listUsers = userService.findAll();
+		 return ResponseEntity.ok().body(listUsers);}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+			// TODO: handle exception
+		}
+		
+		 
 	}
 		
 	 
 	@Operation(summary = "Listar um usuário", description = "Este método retorna apenas um usuário.")
 	@GetMapping(value = "/{id}")
-	public User findOne(@PathVariable Long id){
-		return userService.findOne(id);
+	public ResponseEntity<User> findOne(@PathVariable Long id){
+		
+		try {
+		User oneUser = userService.findOne(id);
+		return ResponseEntity.ok().body(oneUser);
+		}
+		
+		
+		
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+			// TODO: handle exception
+		}
+				
 	}
 	
 	
@@ -49,22 +81,50 @@ public class UserController {
 	@Operation(summary = "Atualizar informação", description = "Este método atualiza as informações de um usuário.")
 	@PutMapping
 	
-	public User Update(@RequestBody User user) {
-		return userService.findAndUpdate(user);
+	public ResponseEntity<User> Update(@RequestBody User user) {
+		try {
+			User updatedUser = userService.findAndUpdate(user);
+			return ResponseEntity.ok().body(updatedUser);
+			
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+			// TODO: handle exception
+		}
+		
+		
 	}
 	
 	@Operation(summary = "Criar usuário", description = "Este método cria um usuário.")
 	@PostMapping
-	public User create(@RequestBody User user) {
-		return userService.create(user);
+	public ResponseEntity<User> create(@RequestBody @Valid User user) {
+		try {
+		User novoUsuario = userService.create(user);
+		return new ResponseEntity<>(user,HttpStatus.CREATED);}
+		
+		catch (ValidationException e) {
+			return ResponseEntity.badRequest().build();
+			// TODO: handle exception
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+			// TODO: handle exception
+		}
 		
 	}
 	
 	@Operation(summary = "Deletar usuário", description = "Este método deleta apenas um usuário")
+	
+	
 	@DeleteMapping(value = "/{id}")
-	public void delete(@PathVariable Long id ) {
-		userService.findAndDelete(id);
-		
+	public ResponseEntity<Void> delete(@PathVariable Long id) {
+	    try {
+	        userService.findAndDelete(id);
+	        return ResponseEntity.noContent().build(); // Exclusão bem-sucedida, sem conteúdo para retornar
+	    } catch (EntityNotFoundException e) {
+	        return ResponseEntity.notFound().build(); // Usuário não encontrado com o ID fornecido
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // Erro interno do servidor
+	    }
 	}
 	
 	

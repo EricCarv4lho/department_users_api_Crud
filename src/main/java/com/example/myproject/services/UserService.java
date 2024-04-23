@@ -2,6 +2,7 @@ package com.example.myproject.services;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,31 +17,69 @@ public class UserService {
 	private final UserRepository userRepository;
 	
 	 
+
 	
 	@Autowired
 	public UserService(UserRepository userRepository) {
 		
 		this.userRepository = userRepository;
 	}
+	
+	
 
 	public List<User> findAll(){
-		return userRepository.findAll();
+		try {
+			return userRepository.findAll();
+			
+		} catch (Exception e) {
+			throw new RuntimeException("Erro ao buscar usuários:  " + e.getMessage());
+			// TODO: handle exception
+		}
+		
 	}
 	
 	public User findOne(Long id){
-		return userRepository.findById(id).orElse(null);
+		
+		try {
+			return userRepository.findById(id).orElse(null);
+		} catch (Exception e) {
+			throw new RuntimeException("Erro ao buscar usuário: " + e.getMessage());
+			// TODO: handle exception
+		}
+		
 	}
 	
 	public User create( User user) {
-		return userRepository.save(user);
+		
+		try {
+			return userRepository.save(user);
+			
+		} catch (Exception e) {
+			throw new RuntimeException("Erro ao criar usuário: " + e.getMessage());
+			// TODO: handle exception
+		}
+		
 	}
 
 	public User findAndUpdate(User user) {
-		return userRepository.save(user);
+		try {
+			return userRepository.save(user);
+			
+		} catch (Exception e) {
+			throw new RuntimeException("Erro ao buscar usuário: " + e.getMessage());
+			// TODO: handle exception
+		}
+		
 	}
 	
 	public void findAndDelete(Long id) {
-		 userRepository.deleteById(id);
+		try { userRepository.deleteById(id);
+			
+		} catch (Exception e) {
+			throw new RuntimeException("Erro ao buscar usuário: " + e.getMessage());
+			// TODO: handle exception
+		}
+		
 	
 	
 	
