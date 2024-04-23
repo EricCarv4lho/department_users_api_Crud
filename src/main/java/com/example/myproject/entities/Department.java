@@ -10,14 +10,14 @@ import jakarta.persistence.Table;
 @Table(name = "tb_department")
 
 public class Department {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	
+
 	public Department() {
-		
+
 	}
 
 	public Long getId() {
@@ -35,12 +35,5 @@ public class Department {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
-	
-	
-	
-	
-	
 
 }
